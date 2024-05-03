@@ -72,7 +72,6 @@ def extract_video_id(url):
 
 
 class BasePafy(object):
-
     """Class to represent a YouTube video."""
 
     def __init__(
@@ -521,7 +520,6 @@ class BasePafy(object):
 
 
 class BaseStream(object):
-
     """YouTube video stream class."""
 
     def __init__(self, parent):

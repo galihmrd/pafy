@@ -36,7 +36,6 @@ def stdout_to_null(fn):
 
 
 class Test(unittest.TestCase):
-
     """Tests."""
 
     def runOnce(self):
