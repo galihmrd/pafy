@@ -14,6 +14,7 @@ if sys.version_info[:2] >= (3, 0):
     uni, pyver = str, 3
 
 else:
+    from pytube import extract
     from urllib2 import HTTPError, URLError, build_opener, urlopen
     from urlparse import parse_qs, urlparse
 
@@ -28,47 +29,12 @@ from .util import xenc
 
 dbg = logging.debug
 
-FACEBOOK_DOMAIN = (
-    "https://fb.watch",
-    "https://www.facebook.com",
-    "https://fb.me",
-    "https://fb.com",
-    "https://m.facebook.com",
-)
 
 
 def extract_video_id(url):
     """Extract the video id from a url, return video id as str."""
     idregx = re.compile(r"[\w-]{11}$")
-    if url.startswith("https://youtube.com/shorts"):
-        try:
-            return url.split("/")[4].split("?")[0]
-        except:
-            return url.split("shorts/")[1]
-    if url.startswith(FACEBOOK_DOMAIN):
-        return url
-
-    url = str(url).strip()
-    if idregx.match(url):
-        return url  # ID of video
-
-    if "://" not in url:
-        url = f"//{url}"
-    parsedurl = urlparse(url)
-    if parsedurl.netloc in (
-        "youtube.com",
-        "www.youtube.com",
-        "m.youtube.com",
-        "gaming.youtube.com",
-        "fb.watch",
-    ):
-        query = parse_qs(parsedurl.query)
-        if "v" in query and idregx.match(query["v"][0]):
-            return query["v"][0]
-    elif parsedurl.netloc in ("youtu.be", "www.youtu.be"):
-        vidid = parsedurl.path.split("/")[-1] if parsedurl.path else ""
-        if idregx.match(vidid):
-            return vidid
+    return extract.video_id(url)
 
     err = "Need 11 character video id or the URL of the video. Got %s"
     raise ValueError(err % url)
