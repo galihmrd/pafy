@@ -41,7 +41,10 @@ def extract_video_id(url):
     """Extract the video id from a url, return video id as str."""
     idregx = re.compile(r"[\w-]{11}$")
     if url.startswith("https://youtube.com/shorts"):
-        return url.split("/")[4].split("?")[0]
+        try:
+            return url.split("/")[4].split("?")[0]
+        except:
+            return url.split("shorts/")[1]
     if url.startswith(FACEBOOK_DOMAIN):
         return url
 
