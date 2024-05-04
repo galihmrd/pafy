@@ -4,6 +4,7 @@ import re
 import subprocess
 import sys
 import time
+import pytube
 
 if sys.version_info[:2] >= (3, 0):
     # pylint: disable=E0611,F0401,I0011
@@ -13,7 +14,6 @@ if sys.version_info[:2] >= (3, 0):
     uni, pyver = str, 3
 
 else:
-    from pytube import extract
     from urllib2 import HTTPError, URLError, build_opener, urlopen
 
     uni, pyver = unicode, 2
@@ -31,10 +31,11 @@ dbg = logging.debug
 def extract_video_id(url):
     """Extract the video id from a url, return video id as str."""
     idregx = re.compile(r"[\w-]{11}$")
-    return extract.video_id(url)
-
-    err = "Need 11 character video id or the URL of the video. Got %s"
-    raise ValueError(err % url)
+    try:
+        return pytube.extract.video_id(url)
+    except BaseException:
+        err = "Need 11 character video id or the URL of the video. Got %s"
+        raise ValueError(err % url)
 
 
 class BasePafy(object):
