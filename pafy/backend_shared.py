@@ -4,8 +4,10 @@ import re
 import subprocess
 import sys
 import time
-
-import pytube
+try:
+    import pytube
+except ModuleNotFoundError:
+    pass
 
 if sys.version_info[:2] >= (3, 0):
     # pylint: disable=E0611,F0401,I0011
