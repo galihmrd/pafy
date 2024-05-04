@@ -8,7 +8,6 @@ import time
 if sys.version_info[:2] >= (3, 0):
     # pylint: disable=E0611,F0401,I0011
     from urllib.error import HTTPError, URLError
-    from urllib.parse import parse_qs, urlparse
     from urllib.request import build_opener, urlopen
 
     uni, pyver = str, 3
@@ -16,7 +15,6 @@ if sys.version_info[:2] >= (3, 0):
 else:
     from pytube import extract
     from urllib2 import HTTPError, URLError, build_opener, urlopen
-    from urlparse import parse_qs, urlparse
 
     uni, pyver = unicode, 2
 
@@ -28,7 +26,6 @@ from .playlist import get_playlist2
 from .util import xenc
 
 dbg = logging.debug
-
 
 
 def extract_video_id(url):
