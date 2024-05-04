@@ -1,4 +1,4 @@
-__version__ = "0.5.8"
+__version__ = "0.5.9"
 __author__ = "np1"
 __license__ = "LGPLv3"
 
