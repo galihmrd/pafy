@@ -35,6 +35,8 @@ dbg = logging.debug
 def extract_video_id(url):
     """Extract the video id from a url, return video id as str."""
     idregx = re.compile(r"[\w-]{11}$")
+    if "facebook" in url.lower() or "fb" in url.lower():
+        return url
     try:
         return pytube.extract.video_id(url)
     except BaseException:
